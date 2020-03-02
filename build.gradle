@@ -6,6 +6,8 @@ apply plugin: 'application'
 group 'sox'
 version '1.0-SNAPSHOT'
 
+mainClassName = "com.sox.server.SoxServer"
+
 sourceCompatibility = 1.8
 
 repositories {
