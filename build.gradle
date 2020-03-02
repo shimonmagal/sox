@@ -1,0 +1,94 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+group 'sox'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.29.1'
+    compile 'org.glassfish.jersey.core:jersey-server:2.29.1'
+    compile 'org.glassfish.jersey.inject:jersey-hk2:2.29.1'
+    compile 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+    compile 'com.google.api-client:google-api-client:1.30.5'
+    compile 'com.google.guava:guava:11.0.2'
+    compile 'com.google.code.gson:gson:2.8.6'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+}
+
+sourceSets {
+    main {
+        resources {
+            exclude '**/node_modules/**'
+        }
+    }
+}
+
+task frontend(type: Exec) {
+    workingDir 'src/main/resources/sox-ui'
+
+    if (Os.isFamily(Os.FAMILY_WINDOWS))
+    {
+        commandLine 'cmd', '/c', 'npm install'
+        commandLine 'cmd', '/c', 'npm run-script build'
+    }
+    else
+    {
+        commandLine 'sh', '-c', 'npm install'
+        commandLine 'sh', '-c', 'npm run-script build'
+    }
+}
+
+task generateScripts(dependsOn:"jar") {
+    doLast {
+        def binDir = new File("$rootDir/bin")
+        binDir.mkdirs();
+
+        def osName = System.getProperty("os.name").toLowerCase()
+
+        def lines
+        def ext
+
+        if (osName.contains("windows")) {
+            ext = "bat"
+        } else {
+            ext = "sh"
+        }
+
+        def scriptFile = new File("$binDir/${projectDir.name}.$ext")
+        def classPath = configurations.runtime.resolve()
+        classPath += jar.archivePath
+        classPath += sourceSets.main.output.resourcesDir
+        def classPathStr = classPath.join(File.pathSeparator)
+
+        print osName
+
+        if (osName.contains("windows")) {
+            lines = [
+                    "@echo off",
+                    "",
+                    "   java -cp $classPathStr $mainClassName %*"
+            ]
+        } else {
+            lines = [
+                    "#!/bin/bash",
+                    "",
+                    "   java -cp $classPathStr $mainClassName \$@"
+            ]
+        }
+
+        scriptFile.write(lines.join("\n"))
+        scriptFile.setExecutable(true)
+    }
+}
+
+build.dependsOn("generateScripts")
+build.dependsOn("frontend")

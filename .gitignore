@@ -1,0 +1,15 @@
+build/
+.gradlew
+.gradle/
+*.class
+bin/
+*.db
+*.db.wal.*
+*.jar
+build/
+target/
+out/
+*.iml
+.idea/
+.idea_modules/
+**/node_modules/*
