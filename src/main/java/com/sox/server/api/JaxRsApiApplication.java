@@ -9,22 +9,25 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class JaxRsApiApplication extends Application {
-    private final Set<Class<?>> classes;
-
-    public JaxRsApiApplication() {
-        Set<Class<?>> c = new HashSet<Class<?>>();
-
-        c.add(AuthenticationFilter.class);
-        c.add(LoginApi.class);
-
-        c.add(Report.class);
-
-        classes = Collections.unmodifiableSet(c);
-    }
-
-    @Override
-    public Set<Class<?>> getClasses() {
-        return classes;
-    }
+public class JaxRsApiApplication extends Application
+{
+	private final Set<Class<?>> classes;
+	
+	public JaxRsApiApplication()
+	{
+		Set<Class<?>> c = new HashSet<Class<?>>();
+		
+		c.add(AuthenticationFilter.class);
+		c.add(LoginApi.class);
+		
+		c.add(Report.class);
+		
+		classes = Collections.unmodifiableSet(c);
+	}
+	
+	@Override
+	public Set<Class<?>> getClasses()
+	{
+		return classes;
+	}
 }

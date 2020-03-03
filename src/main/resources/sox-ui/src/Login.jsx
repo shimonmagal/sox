@@ -1,21 +1,24 @@
 import './App.css';
 
 import React from 'react';
-import { GoogleLogin } from 'react-google-login';
+import {GoogleLogin} from 'react-google-login';
 import axios from "axios";
 
 const CLIENT_ID = "302172748643-4ku8jk6v9le1agq7qtj82qn4ombphkld.apps.googleusercontent.com";
 
-class Login extends React.Component {
-	constructor(props) {
+class Login extends React.Component
+{
+	constructor(props)
+	{
 		super(props)
-
+		
 		this.state = {
 			loginFailedReason: ''
 		}
 	}
-
-	onGoogleResponse(googleResponse) {
+	
+	onGoogleResponse(googleResponse)
+	{
 		console.log(googleResponse);
 		let self = this;
 		axios({
@@ -26,10 +29,13 @@ class Login extends React.Component {
 		})
 			.then(response => {
 				console.log(response);
-				if (response.status == 200) {
+				if (response.status == 200)
+				{
 					self.setState({loginFailedReason: ''});
 					self.props.onLoginSuccess();
-				} else {
+				}
+				else
+				{
 					self.setState({loginFailedReason: response.statusText});
 					console.log(response);
 				}
@@ -39,11 +45,12 @@ class Login extends React.Component {
 				self.setState({loginFailedReason: error.message});
 			});
 	}
-
-	render() {
+	
+	render()
+	{
 		return (
 			<div className="Login">
-                <p>Please login using a Gmail account</p>
+				<p>Please login using a Gmail account</p>
 				<GoogleLogin
 					clientId={CLIENT_ID}
 					buttonText="Login"

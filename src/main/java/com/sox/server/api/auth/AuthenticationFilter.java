@@ -16,28 +16,29 @@ import java.io.IOException;
 @Secured
 @Provider
 @Priority(Priorities.AUTHENTICATION)
-public class AuthenticationFilter implements ContainerRequestFilter {
-    private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
-
-    @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException
-    {
-        Cookie cookie = requestContext.getCookies().get("JSESSIONID");
-
-        if (cookie == null)
-        {
-            requestContext.abortWith(Response.status(403).entity("not logged in").build());
-        }
-
-        String user = SessionManager.get(cookie.getValue());
-
-        if (user == null)
-        {
-            requestContext.abortWith(Response.status(403).entity("not logged in").build());
-        }
-        else
+public class AuthenticationFilter implements ContainerRequestFilter
+{
+	private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
+	
+	@Override
+	public void filter(ContainerRequestContext requestContext) throws IOException
+	{
+		Cookie cookie = requestContext.getCookies().get("JSESSIONID");
+		
+		if (cookie == null)
+		{
+			requestContext.abortWith(Response.status(403).entity("not logged in").build());
+		}
+		
+		String user = SessionManager.get(cookie.getValue());
+		
+		if (user == null)
+		{
+			requestContext.abortWith(Response.status(403).entity("not logged in").build());
+		}
+		else
 		{
 //            logger.debug("User is: {}", user);
-        }
-    }
+		}
+	}
 }
