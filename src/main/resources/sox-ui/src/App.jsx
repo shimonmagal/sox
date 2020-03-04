@@ -1,8 +1,9 @@
 import './App.css';
 
 import React from 'react';
-import BasicReport from "./BasicReport";
+import MainPage from "./MainPage";
 import Login from "./Login";
+import SidePanel from "./SidePanel";
 
 class App extends React.Component
 {
@@ -25,11 +26,7 @@ class App extends React.Component
 	{
 		return (
 			<div>
-				<h1>Welcome to SOX!</h1>
-				{!this.state.authenticated ?
-					<Login onLoginSuccess={this.onLoginSuccess.bind(this)}/> :
-					<BasicReport/>
-				}
+				<MainPage/>
 			</div>
 		);
 	}

@@ -50,7 +50,7 @@ public class SoxServer
 			URI uri = t.getRequestURI();
 			String path = uri.getPath();
 			
-			if (path.equals("/") || (path.isEmpty()))
+			if (path.equals("/") || path.isEmpty() || !path.contains("."))
 			{
 				path = "/index.html";
 			}
