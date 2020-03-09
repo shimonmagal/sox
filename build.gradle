@@ -17,6 +17,8 @@ repositories {
 dependencies {
     compile 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.29.1'
     compile 'org.glassfish.jersey.core:jersey-server:2.29.1'
+    compile 'org.glassfish.jersey.core:jersey-server:2.29.1'
+    compile 'org.glassfish.jersey.media:jersey-media-multipart:2.29.1'
     compile 'org.glassfish.jersey.inject:jersey-hk2:2.29.1'
     compile 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
     compile 'javax.xml.bind:jaxb-api:2.3.0'

@@ -1,8 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import UploadExcel from "./UploadExcel";
+
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+
+import 'font-awesome/css/font-awesome.min.css';
 
 class SidePanel extends React.Component
 {
@@ -19,6 +23,7 @@ class SidePanel extends React.Component
 				<Route render={({ location, history }) => (
 					<React.Fragment>
 						<SideNav
+							style={{'background-color': '#0394fc'}}
 							onSelect={(selected) => {
 								const to = '/' + selected;
 								if (location.pathname !== to) {
@@ -42,10 +47,18 @@ class SidePanel extends React.Component
 								</NavItem>
 								<NavItem eventKey="about">
 									<NavIcon>
-										<i className="fa fa-fw fa-device" style={{ fontSize: '1.75em' }} />
+										<i className="fa fa-fw fa-info" style={{ fontSize: '1.75em' }} />
 									</NavIcon>
 									<NavText>
 										Devices
+									</NavText>
+								</NavItem>
+								<NavItem eventKey="upload-excel">
+									<NavIcon>
+										<i className="fa fa-fw fa-table" style={{ fontSize: '1.75em' }} />
+									</NavIcon>
+									<NavText>
+										Upload excel
 									</NavText>
 								</NavItem>
 							</SideNav.Nav>
@@ -60,6 +73,7 @@ class SidePanel extends React.Component
 								<h1>Welcome to SOX</h1>
 								<Route path="/home" component={props => <Home />} />
 								<Route path="/about" component={props => <About />} />
+								<Route path="/upload-excel" component={props => <UploadExcel />} />
 							</div>
 						</main>
 					</React.Fragment>
