@@ -10,11 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.io.*;
 import java.nio.file.StandardCopyOption;
-import java.util.Collections;
 
 @Path("excel")
 public class ExcelApi

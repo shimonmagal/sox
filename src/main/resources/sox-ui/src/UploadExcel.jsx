@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class UploadExcel extends React.Component
 {
@@ -9,7 +12,8 @@ class UploadExcel extends React.Component
 		
 		this.state = {
 			selectedFile: null,
-			uploaded: false
+			uploaded: false,
+			count: 0
 		}
 	}
 	
@@ -20,7 +24,7 @@ class UploadExcel extends React.Component
 		})
 	}
 	
-	onClickHandler()
+	onClickHandler(event)
 	{
 		const data = new FormData()
 		data.append('file', this.state.selectedFile)
@@ -28,13 +32,15 @@ class UploadExcel extends React.Component
 		let self = this;
 		axios.put("/api/excel", data, {})
 			.then(res => {
-				if (res.statusText == 200)
+				if (res.status == 200)
 				{
-					this.setState({uploaded: true})
+					this.setState({uploaded: true, count: this.state.count + 1})
+					toast.success("File: " + this.state.selectedFile.name + " uploaded successfully");
 				}
 				else
 				{
-					this.setState({error: "Failed with code: " + res.statusText})
+					this.setState({error: "Failed with code: " + res.statusText});
+					toast.error("File: " + this.state.selectedFile.name + " failed uploading");
 				}
 			});
 	}
@@ -47,11 +53,21 @@ class UploadExcel extends React.Component
 				<p>Upload your excel:</p>
 				<div className="form-group files">
 					<label>Upload Your File </label>
-					<input type="file" className="form-control" multiple onChange={this.onChangeHandler.bind(this)}/>
+					<input accept=".xlsx, .xls, .csv" key={this.state.count} style={{"height":"200px"}} type="file" className="form-control" multiple onChange={this.onChangeHandler.bind(this)}/>
 				</div>
 				<button type="button" className="btn btn-success btn-block" onClick={this.onClickHandler.bind(this)}>Upload
 				</button>
-			</div>
+				<ToastContainer
+					position="bottom-right"
+					autoClose={4000}
+					hideProgressBar
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnVisibilityChange
+					draggable
+					pauseOnHover
+				/>			</div>
 		);
 	}
 }
