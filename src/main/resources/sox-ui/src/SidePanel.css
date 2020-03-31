@@ -1,0 +1,9 @@
+.SoxTitle {
+  text-align: center;
+  background-color: darkblue;
+  color: white;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+}

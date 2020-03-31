@@ -42,7 +42,9 @@ class UploadExcel extends React.Component
 					this.setState({error: "Failed with code: " + res.statusText});
 					toast.error("File: " + this.state.selectedFile.name + " failed uploading");
 				}
-			});
+			}).catch(() => {
+				toast.error("File: " + this.state.selectedFile.name + " failed uploading");
+		});
 	}
 	
 	
@@ -52,7 +54,6 @@ class UploadExcel extends React.Component
 			<div>
 				<p>Upload your excel:</p>
 				<div className="form-group files">
-					<label>Upload Your File </label>
 					<input accept=".xlsx, .xls, .csv" key={this.state.count} style={{"height":"200px"}} type="file" className="form-control" multiple onChange={this.onChangeHandler.bind(this)}/>
 				</div>
 				<button type="button" className="btn btn-success btn-block" onClick={this.onClickHandler.bind(this)}>Upload

@@ -8,6 +8,11 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
 import 'font-awesome/css/font-awesome.min.css';
 
+import Dashboard from './Dashboard';
+import Controls from "./Controls";
+
+import './SidePanel.css'
+
 class SidePanel extends React.Component
 {
 	constructor(props)
@@ -36,21 +41,62 @@ class SidePanel extends React.Component
 							}}
 						>
 							<SideNav.Toggle />
-							<SideNav.Nav defaultSelected="home">
-								<NavItem eventKey="home">
+							<SideNav.Nav defaultSelected="dashboard">
+								<NavItem eventKey="dashboard">
 									<NavIcon>
-										<i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+										<i className="fa fa-fw fa-dashboard" style={{ fontSize: '1.75em' }} />
 									</NavIcon>
 									<NavText>
-										Home
+										Dashboard
 									</NavText>
 								</NavItem>
-								<NavItem eventKey="about">
+								<NavItem eventKey="processes">
 									<NavIcon>
-										<i className="fa fa-fw fa-info" style={{ fontSize: '1.75em' }} />
+										<i className="fa fa-fw fa-cogs" style={{ fontSize: '1.75em' }} />
 									</NavIcon>
 									<NavText>
 										Devices
+									</NavText>
+								</NavItem>
+								<NavItem eventKey="risks">
+									<NavIcon>
+										<i className="fa fa-fw fa-bomb" style={{ fontSize: '1.75em' }} />
+									</NavIcon>
+									<NavText>
+										Risks
+									</NavText>
+								</NavItem>
+								
+								<NavItem eventKey="controls">
+									<NavIcon>
+										<i className="fa fa-fw fa-book" style={{ fontSize: '1.75em' }} />
+									</NavIcon>
+									<NavText>
+										Controls
+									</NavText>
+								</NavItem>
+								<NavItem eventKey="task-schedule">
+									<NavIcon>
+										<i className="fa fa-fw fa-calendar" style={{ fontSize: '1.75em' }} />
+									</NavIcon>
+									<NavText>
+										Task schedule
+									</NavText>
+								</NavItem>
+								<NavItem eventKey="Tasks">
+									<NavIcon>
+										<i className="fa fa-fw fa-tasks" style={{ fontSize: '1.75em' }} />
+									</NavIcon>
+									<NavText>
+										Tasks
+									</NavText>
+								</NavItem>
+								<NavItem eventKey="reports">
+									<NavIcon>
+										<i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
+									</NavIcon>
+									<NavText>
+										Reports
 									</NavText>
 								</NavItem>
 								<NavItem eventKey="upload-excel">
@@ -70,9 +116,18 @@ class SidePanel extends React.Component
 									padding: '15px 20px 0 20px'
 								}}
 							>
-								<h1>Welcome to SOX</h1>
-								<Route path="/home" component={props => <Home />} />
-								<Route path="/about" component={props => <About />} />
+								<div className="SoxTitle">
+									<h5>SOX Controls Manager</h5>
+								</div>
+								<br/>
+								
+								<Route path="/dashboard" component={props => <Dashboard />} />
+								<Route path="/processes" component={props => <Processes />} />
+								<Route path="/risks" component={props => <Risks />} />
+								<Route path="/controls" component={props => <Controls />} />
+								<Route path="/task-schedule" component={props => <TaskSchedule />} />
+								<Route path="/tasks" component={props => <Tasks />} />
+								<Route path="/reports" component={props => <Reports />} />
 								<Route path="/upload-excel" component={props => <UploadExcel />} />
 							</div>
 						</main>
@@ -84,20 +139,46 @@ class SidePanel extends React.Component
 	}
 }
 
-const Home = (props) =>
+const Processes = (props) =>
 {
 	return (
 		<div>
-			<h1>This is the home page</h1>
+			<h2>This is the processes page</h2>
 		</div>
 	);
 };
 
-const About = (props) =>
+const Risks = (props) =>
 {
 	return (
 		<div>
-			<h1>This is the about page</h1>
+			<h2>This is the risks page</h2>
+		</div>
+	);
+};
+
+const TaskSchedule = (props) =>
+{
+	return (
+		<div>
+			<h2>This is the task schedule page</h2>
+		</div>
+	);
+};
+
+const Tasks = (props) =>
+{
+	return (
+		<div>
+			<h2>This is the Tasks page</h2>
+		</div>
+	);
+};
+const Reports = (props) =>
+{
+	return (
+		<div>
+			<h2>This is the reports page</h2>
 		</div>
 	);
 };

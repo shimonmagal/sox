@@ -1,8 +1,9 @@
 package com.sox.server.api;
 
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.sox.server.session.SessionManager;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.slf4j.Logger;
@@ -13,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
 import java.nio.file.StandardCopyOption;
+
+import static com.sun.org.apache.xpath.internal.objects.XObject.create;
 
 @Path("excel")
 public class ExcelApi
@@ -32,8 +35,16 @@ public class ExcelApi
 					fileInputStream,
 					targetFile.toPath(),
 					StandardCopyOption.REPLACE_EXISTING);
+			
+			Workbook workbook = WorkbookFactory.create(targetFile);
+			Sheet sheet = workbook.getSheetAt(0);
 		}
 		catch (IOException e)
+		{
+			logger.error("Error while uploading excel: " + disposition.getFileName(), e);
+			return Response.status(500).entity("Exception occured").build();
+		}
+		catch (InvalidFormatException e)
 		{
 			logger.error("Error while uploading excel: " + disposition.getFileName(), e);
 			return Response.status(500).entity("Exception occured").build();
