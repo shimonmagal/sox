@@ -122,6 +122,7 @@ class SidePanel extends React.Component
 								<br/>
 								
 								<Route exact path="/" component={props => <Dashboard />} />
+								<Route path="/dashboard" component={props => <Dashboard />} />
 								<Route path="/processes" component={props => <Processes />} />
 								<Route path="/risks" component={props => <Risks />} />
 								<Route path="/controls" component={props => <Controls />} />
